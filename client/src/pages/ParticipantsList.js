@@ -6,11 +6,15 @@ import { useParams } from 'react-router-dom'
 
 const ParticipantsList = () => {
 
+    const backendUrl = window.location.hostname === 'localhost' ? 
+    'http://localhost:3001' : 
+    'http://192.168.49.2:30002'; 
+
     const params = useParams()
     const [users,setUsers] = useState()
     const getUsers = async() => {
         try{
-            const {data} = await axios.get(`http://localhost:3001/api/v1/event/geteventusers/${params.eid}`);
+            const {data} = await axios.get(`${backendUrl}/api/v1/event/geteventusers/${params.eid}`);
             if(data?.success)
             {
                 setUsers(data?.eventusers)

@@ -8,6 +8,9 @@ import { useAuth } from '../Context/auth.js';
 import toast from 'react-hot-toast'
 const LoginPage = () => {
 
+  const backendUrl = window.location.hostname === 'localhost' ? 
+  'http://localhost:3001' : 
+  'http://192.168.49.2:30002'; 
   const navigate = useNavigate();
   const [auth,setAuth] = useAuth() || {};
   const [email,setEmail] = useState('')
@@ -15,7 +18,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
       try{
-        const res = await axios.post('http://localhost:3001/api/v1/auth/login',{email,password})
+        const res = await axios.post(`${backendUrl}/api/v1/auth/login`,{email,password})
         if(res.data.success)
         {
           setAuth({

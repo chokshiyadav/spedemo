@@ -47,6 +47,7 @@ export const getAllEventsController = async(req,res) =>{
             success:false,
             message:"error while fetching events"
         })
+        console.log(error)
     }
 }
 

@@ -9,6 +9,10 @@ import  toast  from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 const EventDetails = () => {
+
+  const backendUrl = window.location.hostname === 'localhost' ? 
+  'http://localhost:3001' : 
+  'http://192.168.49.2:30002'; 
   
   const params = useParams()
   const navigate = useNavigate()
@@ -29,7 +33,7 @@ const EventDetails = () => {
   const getEvent = async() => {
     try{
 
-      const {data} = await axios.get(`http://localhost:3001/api/v1/event/getOneEvent/${params.title}`)
+      const {data} = await axios.get(`${backendUrl}/api/v1/event/getOneEvent/${params.title}`)
       if(data?.success)
       {
          toast.success('events were fetched')
@@ -54,7 +58,7 @@ const EventDetails = () => {
   const participate = async() =>{
     try{
       const dat = localStorage.getItem('auth')
-        const {data} = await axios.put(`http://localhost:3001/api/v1/auth/participate/${params.eid}`)
+        const {data} = await axios.put(`${backendUrl}/api/v1/auth/participate/${params.eid}`)
 
         if(data?.success)
         {

@@ -6,6 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 const YourEvents = () => {
+
+  const backendUrl = window.location.hostname === 'localhost' ? 
+  'http://localhost:3001' : 
+  'http://192.168.49.2:30002'; 
   const navigate = useNavigate();
 
   const [auth] = useAuth();
@@ -13,7 +17,7 @@ const YourEvents = () => {
   const getYourEvents = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:3001/api/v1/event/get-hostedEvents"
+        `${backendUrl}/api/v1/event/get-hostedEvents`
       );
       if (data?.success) {
         setEvents(data?.events);

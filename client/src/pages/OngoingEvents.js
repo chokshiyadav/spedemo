@@ -5,6 +5,10 @@ import axios from "axios";
 import { NavLink, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+
+const backendUrl = window.location.hostname === 'localhost' ? 
+'http://localhost:3001' : 
+'http://192.168.49.2:30002'; 
 const OngoingEvents = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([
@@ -24,7 +28,7 @@ const OngoingEvents = () => {
   const getAllEvents = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:3001/api/v1/event/get-events"
+        `${backendUrl}/api/v1/event/get-events`
       );
       if (data?.success) {
         toast.success("Events were fetched");

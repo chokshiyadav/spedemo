@@ -25,11 +25,13 @@ const SignUpPage = () => {
   const updatePhone = (e) => {
     setPhone(e.target.value);
   };
-
+  const backendUrl = window.location.hostname === 'localhost' ? 
+  'http://localhost:3001' : 
+  'http://192.168.49.2:30002'; 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3001/api/v1/auth/register', {
+      const res = await axios.post(`${backendUrl}/api/v1/auth/register`, {
         name,
         email,
         password,

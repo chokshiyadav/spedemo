@@ -2,6 +2,9 @@ import { comaprePassword, hashPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
 import eventModel from "../models/eventModel.js";
 import JWT from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const registerController = async(req,res) => {
     try{
@@ -22,6 +25,8 @@ export const registerController = async(req,res) => {
 
         const user = await new userModel({name,email,phone,password:hashedPassword}).save()
 
+        console.log(user)
+
         res.send({
             success:true,
             message:"User registered successfully",
@@ -29,6 +34,7 @@ export const registerController = async(req,res) => {
         })
 
     }catch(error){
+        console.log(error)
         res.send({
             success:false,
             message:"Error in registration",
@@ -40,6 +46,8 @@ export const registerController = async(req,res) => {
 export const loginController = async(req,res) => {
     try{
         const {email,password} = req.body;
+        console.log('JWT_SECRET:', process.env.JWT_SECRET);
+        console.log(email);
         if(!email || !password){
             return res.send({
                 successs:false,
@@ -61,6 +69,7 @@ export const loginController = async(req,res) => {
                 message:"Invalid password"
             })
         }
+        
         const token = await JWT.sign({_id:user._id},process.env.JWT_SECRET,{expiresIn:"7d"});
         res.send({
             success:true,
@@ -71,16 +80,17 @@ export const loginController = async(req,res) => {
                 phone: user.phone,
                 _id:user._id,
             },
-            token,
+            token
         });
 
 
     }catch(error){
-        res.send({
-            success:false,
-            message:"Error in login",
-            error
-        })
+        res.status(500).send({
+            success: false,
+            message: "Error in login",
+            error: error.message || error,
+        });
+        console.error(error);
     }
 }
 

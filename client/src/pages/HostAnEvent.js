@@ -15,11 +15,15 @@ const HostAnEvent = () => {
   const [time,setTime] = useState()
   const navigate = useNavigate();
 
+
+  const backendUrl = window.location.hostname === 'localhost' ? 
+  'http://localhost:3001' : 
+  'http://192.168.49.2:30002'; 
   const handleSubmit = async(e) =>{
     e.preventDefault();
     let id = auth?.user?._id;
     try {
-      const {data} = await axios.post(`http://localhost:3001/api/v1/event/create-event`,{title,description,place,date,time});
+      const {data} = await axios.post(`${backendUrl}/api/v1/event/create-event`,{title,description,place,date,time});
       if (data?.success)
       {
         toast.success("Event created successfully");
