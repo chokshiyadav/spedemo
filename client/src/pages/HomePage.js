@@ -14,7 +14,7 @@ const HomePage = () => {
               <div class="card" id="firstimage" style={{width: "20rem",height:"20rem"}}>
                   <img src="./ongoingevents.jpg" class="card-img-top" alt="..." style={{width: "20rem",height:"15rem"}}/>
                   <div class="card-body">
-                    <h5 class="card-title" id="cardtitle">ON Coming EVENTS</h5>
+                    <h5 class="card-title" id="cardtitle">Up coming events</h5>
                     <p class="card-text" id="carddesc">Check all the events happening</p>
                   </div>
                 </div>
