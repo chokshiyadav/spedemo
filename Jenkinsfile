@@ -1,9 +1,10 @@
 pipeline {
     agent any
     environment {
-        mongo_url = "mongodb+srv://charan03:030904@clusterecoverse.xxoya0d.mongodb.net/ecoverse"
+        MONGO_URL = "mongodb+srv://charan03:030904@clusterecoverse.xxoya0d.mongodb.net/ecoverse"
         JWT_SECRET = "SDNCN23423TN394UFKND"
         jwt_token = "dhfmharnca394020"
+        KUBECONFIG = '/var/lib/jenkins/.kube/config'
     }
     stages {
         stage('Stage 1: Git Clone') {
@@ -38,7 +39,7 @@ pipeline {
         stage('Ansible Deployment') {
             steps {
                 script { 
-                    sh 'ansible-playbook playbook-k8.yml -i inventory-k8'
+                    sh 'ansible-playbook playbook.yml -i inventory'
                 }
             }
         }
