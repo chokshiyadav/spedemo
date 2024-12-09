@@ -10,28 +10,32 @@ pipeline {
         stage('Stage 1: Git Clone') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/charansrisai03/bookmyevent.git'
+                url: 'https://github.com/chokshiyadav/spedemo.git'
             }
         }
         stage('client build') {
             steps {
                 dir('client'){
-                sh 'docker build -t charansrisai/frontend:latest .'
+                sh 'docker build -t chokshi/frontend:latest .'
             }
             }
         }
         stage("Server build") {
             steps {
                 dir('backend'){
-                sh 'docker build -t charansrisai/backend:latest .'
+                sh 'docker build -t chokshi/backend:latest .'
             }}
         }
         stage('Push to Docker Hub') {
             steps {
                 script {
-                        sh "docker login --username charansrisai --password Amma@0309"
-                        sh 'docker push charansrisai/frontend:latest'
-                        sh "docker push charansrisai/backend:latest"
+                        withCredentials([usernamePassword(credentialsId: 'DockerHubCred', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                                            sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                                            sh 'docker tag frontend-image chokshi/frontend-image:latest'
+                                            sh 'docker push chokshi/frontend-image:latest'
+                                            sh 'docker tag backend-image chokshi/backend-image:latest'
+                                            sh 'docker push chokshi/backend-image:latest'
+                        }
                     
                 }
             }

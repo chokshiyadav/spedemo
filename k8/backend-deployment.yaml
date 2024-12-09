@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: charansrisai/backend:latest
+        image: chokshi/backend:latest
         resources:
           limits:
             memory: "128Mi"

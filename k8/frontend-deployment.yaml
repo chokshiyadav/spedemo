@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: charansrisai/frontend:latest
+          image: chokshi/frontend:latest
           ports:
             - containerPort: 3000
 

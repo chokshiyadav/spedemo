@@ -1,7 +1,7 @@
 version: '3'
 services:
   frontend:
-    image: charansrisai/frontend:latest
+    image: chokshi/frontend:latest
     restart: always
     ports:
       - '3000:3000'
@@ -11,7 +11,7 @@ services:
       - app_network
 
   backend:
-    image: charansrisai/backend:latest
+    image: chokshi/backend:latest
     dns:
       - 8.8.8.8
       - 8.8.4.4
